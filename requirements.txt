@@ -1,3 +1,6 @@
+jupyter
+ipywidgets
+jupyterlab
 cython
 numpy
 pandas

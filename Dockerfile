@@ -1,18 +1,12 @@
 FROM python:3.6.3-stretch
 
-# Install Jupyter
-RUN pip install jupyter
-RUN pip install ipywidgets
-RUN jupyter nbextension enable --py widgetsnbextension
-
-# Install JupyterLab
-RUN pip install jupyterlab && jupyter serverextension enable --py jupyterlab
+# Install Jupyter, JupyterLab and additional packages
+COPY requirements.txt requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt && \
+    jupyter nbextension enable --py widgetsnbextension && \
+    jupyter serverextension enable --py jupyterlab
 
 ENV LANG=C.UTF-8
-
-# Install Python Packages & Requirements
-COPY requirements.txt requirements.txt
-RUN pip install -r requirements.txt
 
 # Expose Jupyter port & cmd
 EXPOSE 8888
